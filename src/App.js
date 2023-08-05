@@ -37,7 +37,7 @@ function App() {
             </Row>
           </Container>
         </div>} />
-        <Route path='/detail' element={<Detail/>} />
+        <Route path='/detail/:id' element={<Detail shoes={shoes}/>} />
         <Route path='*' element={<div>요청할수 없는 페이지 입니다.</div>}/>
         <Route path='/event' element={<Event/>}>
           <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>}/>
