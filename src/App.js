@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 function App() {
   let [shoes ,setShoes]=useState(data)
+  let [count,setCount]=useState()
   return (
     <div className="App">
        <Navbar bg="light" data-bs-theme="light">
@@ -21,20 +22,22 @@ function App() {
       <div className='main-bg' style={{backgroundImage:'url('+대문이미지+')'}}></div>
       <Container>
       <Row>
-      <Shoes shoes={shoes}/>
-      <Shoes shoes={shoes}/>
-      <Shoes shoes={shoes}/>
+        {
+          shoes.map((a)=>{
+            return(<Card shoes={a}/>)
+          })
+        }
       </Row>
     </Container>
     </div>
   );
 
-  function Shoes(props){
+  function Card(props){
     return(
       <Col md={4} >
-        <img src={props.shoes[0].img} width='80%'/>
-        <h4>{props.shoes[0].title}</h4>
-        <p>{props.shoes[0].price}</p>
+        <img src={props.shoes.img} width='80%'/>
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.price}</p>
       </Col>
     )
   }
