@@ -1,8 +1,18 @@
-.main-bg{
+.main-bg {
   height: 300px;
   background-size: cover;
   background-position: center;
 }
-.App{
+
+.App {
   text-align: center;
+}
+
+.start {
+  opacity: 0;
+}
+
+.end {
+  opacity: 1;
+  transition: all 0.25s;
 }

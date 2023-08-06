@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Nav } from "react-bootstrap";
 
 
+
 const Detail = (props) => {
   let { id } = useParams();
   let 선택상품 = props.shoes.find((a) => {
@@ -11,14 +12,20 @@ const Detail = (props) => {
   });
   let [입력값, 입력값변경] = useState(0);
   let [탭, 탭변경] = useState(0);
+  let [end, setEnd] = useState('');
+  
 
   useEffect(() => {
+    setTimeout(() => { setEnd('end') }, 100)
     if (isNaN(입력값) == true) {
       alert('그러지마세요')
     }
+    return ()=>{
+      setEnd('')
+    }
   }, [입력값])
   return (
-    <div>
+    <div className={"start "+end}>
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -35,23 +42,34 @@ const Detail = (props) => {
       </div>
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(0)}} eventKey="link0">버튼0</Nav.Link>
+          <Nav.Link onClick={() => { 탭변경(0) }} eventKey="link0">버튼0</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(1)}} eventKey="link1">버튼1</Nav.Link>
+          <Nav.Link onClick={() => { 탭변경(1) }} eventKey="link1">버튼1</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(2)}}eventKey="link2">버튼2</Nav.Link>
+          <Nav.Link onClick={() => { 탭변경(2) }} eventKey="link2">버튼2</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent 탭={탭}/>
+      <TabContent 탭={탭} />
     </div>
   );
 
-  function  TabContent({탭}){
-   return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭]
+  function TabContent({탭}) {
+    let [end, setEnd] = useState('');
+    useEffect(() => {
+      setTimeout(() => { setEnd('end') }, 100)
+      return ()=>{
+        setEnd('')
+      }
+    }, [탭])
+    return (
+      <div className={'start '+ end}>
+        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+      </div>
+      )
   }
-  
+
 };
 
 export default Detail;
