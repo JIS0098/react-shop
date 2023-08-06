@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { Nav } from "react-bootstrap";
 
 
 const Detail = (props) => {
@@ -9,9 +10,10 @@ const Detail = (props) => {
     return a.id == id;
   });
   let [입력값, 입력값변경] = useState(0);
+  let [탭, 탭변경] = useState(0);
 
-  useEffect(()=>{
-    if (isNaN(입력값) == true){
+  useEffect(() => {
+    if (isNaN(입력값) == true) {
       alert('그러지마세요')
     }
   }, [입력값])
@@ -20,7 +22,7 @@ const Detail = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <img src={선택상품.img} width="100%" />
+            <img src={'https://codingapple1.github.io/shop/shoes1.jpg'} width='80%' />
           </div>
           <div className="col-md-6">
             <input onChange={(e) => { 입력값변경(e.target.value) }} type="text" placeholder="갯수를 입력해주세요."></input>
@@ -31,8 +33,25 @@ const Detail = (props) => {
           </div>
         </div>
       </div>
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link onClick={()=>{탭변경(0)}} eventKey="link0">버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={()=>{탭변경(1)}} eventKey="link1">버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={()=>{탭변경(2)}}eventKey="link2">버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent 탭={탭}/>
     </div>
   );
+
+  function  TabContent({탭}){
+   return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭]
+  }
+  
 };
 
 export default Detail;

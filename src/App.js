@@ -10,21 +10,21 @@ import axios from 'axios';
 
 function App() {
   let [shoes, setShoes] = useState(data)
-  let [count , setCount] = useState(1)
+  let [count, setCount] = useState(1)
   let [loading, setLoading] = useState(true)
 
   let navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`https://codingapple1.github.io/shop/data${count}.json`).then((a) => {
-          let copy = [...shoes, ...a.data]
-          setShoes(copy)
-          setLoading(false)
-        })
-          .catch(() => {
-            console.log('데이터 전송 실패!')
-            setLoading(false)
-          })
+      let copy = [...shoes, ...a.data]
+      setShoes(copy)
+      setLoading(false)
+    })
+      .catch(() => {
+        console.log('데이터 전송 실패!')
+        setLoading(false)
+      })
   }, [count])
 
   return (
@@ -44,9 +44,21 @@ function App() {
           <Container>
             <Row>
               {
-                shoes.map((a,i) => {
-                  return (<Card shoes={a} i={i+1} />)
+                shoes.map((a, i) => {
+                  return (<Card shoes={a} i={i + 1} />)
                 })
+              }
+              {loading ?
+                <div>...로딩중</div>
+                : null
+              }
+              {
+                count > 3 ?
+                  <div>추가할 상품이 없습니다.</div>
+                  : <button onClick={() => {
+                    setCount(count + 1)
+                  }}>더보기</button>
+
               }
             </Row>
           </Container>
@@ -58,20 +70,6 @@ function App() {
           <Route path='two' element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
-      { loading?
-        <div>...로딩중</div>
-        :null
-      }
-      
-      {
-        count >3? 
-        <div>추가할 상품이 없습니다.</div>
-        :<button onClick={() => {
-          setCount(count+1)
-        }}>더보기</button>
-        
-      }
-      
     </div>
   );
 
@@ -87,7 +85,7 @@ function App() {
   function Card(props) {
     return (
       <Col md={4} >
-        <img src={'https://codingapple1.github.io/shop/shoes'+props.i+'.jpg'} width='80%' />
+        <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width='80%' />
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
       </Col>
