@@ -10,12 +10,22 @@ import axios from 'axios';
 
 function App() {
   let [shoes, setShoes] = useState(data)
+  let [count , setCount] = useState(1)
+  let [loading, setLoading] = useState(true)
 
   let navigate = useNavigate();
 
   useEffect(() => {
-
-  }, [])
+    axios.get(`https://codingapple1.github.io/shop/data${count}.json`).then((a) => {
+          let copy = [...shoes, ...a.data]
+          setShoes(copy)
+          setLoading(false)
+        })
+          .catch(() => {
+            console.log('데이터 전송 실패!')
+            setLoading(false)
+          })
+  }, [count])
 
   return (
     <div className="App">
@@ -48,16 +58,20 @@ function App() {
           <Route path='two' element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
-      <button onClick={() => {
-        axios.get('https://codingapple1.github.io/shop/data2.json').then((a) => {
-          let data = a.data
-          let copy = [...shoes, ...data]
-          setShoes(copy)
-        })
-          .catch(() => {
-            console.log('데이터 전송 실패!')
-          })
-      }}>데이터 요청!</button>
+      { loading?
+        <div>...로딩중</div>
+        :null
+      }
+      
+      {
+        count >3? 
+        <div>추가할 상품이 없습니다.</div>
+        :<button onClick={() => {
+          setCount(count+1)
+        }}>더보기</button>
+        
+      }
+      
     </div>
   );
 
