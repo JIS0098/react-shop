@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
+
 const Detail = (props) => {
   let { id } = useParams();
   let 선택상품 = props.shoes.find((a) => {
