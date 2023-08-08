@@ -5,9 +5,9 @@ import { Nav } from "react-bootstrap";
 
 
 
-const Detail = (props) => {
+const Detail = ({shoes}) => {
   let { id } = useParams();
-  let 선택상품 = props.shoes.find((a) => {
+  let 선택상품 = shoes.find((a) => {
     return a.id == id;
   });
   let [입력값, 입력값변경] = useState(0);
@@ -51,11 +51,11 @@ const Detail = (props) => {
           <Nav.Link onClick={() => { 탭변경(2) }} eventKey="link2">버튼2</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent 탭={탭} />
+      <TabContent 탭={탭} shoes={shoes} />
     </div>
   );
 
-  function TabContent({탭}) {
+  function TabContent({탭,shoes}) {
     let [end, setEnd] = useState('');
     useEffect(() => {
       setTimeout(() => { setEnd('end') }, 100)
@@ -65,7 +65,7 @@ const Detail = (props) => {
     }, [탭])
     return (
       <div className={'start '+ end}>
-        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+        {[<div>{shoes[0].title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
       </div>
       )
   }
