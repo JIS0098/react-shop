@@ -9,8 +9,11 @@ let cart = createSlice({
         { id: 2, name: 'Grey Yordan', count: 1 }
     ],
     reducers:{
-        addCount(state){
-            state.count++
+        addCount(state,actions){
+        let a = state.findIndex((a)=>{
+            return a.id === actions.payload
+        })
+        state[a].count++
         }
     }
 })
