@@ -31,7 +31,7 @@ const Cart = () => {
           {cart.map((a,i) => {
             return (
               <tr>
-                <td>1</td>
+                <td>{a.id}</td>
                 <td>{a.name}</td>
                 <td>{a.count}</td>
                 <td><button onClick={()=>{

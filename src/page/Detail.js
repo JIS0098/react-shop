@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Nav } from "react-bootstrap";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "../store";
 
 
 const Detail = ({shoes}) => {
+
   let { id } = useParams();
   let 선택상품 = shoes.find((a) => {
     return a.id == id;
@@ -13,6 +15,7 @@ const Detail = ({shoes}) => {
   let [입력값, 입력값변경] = useState(0);
   let [탭, 탭변경] = useState(0);
   let [end, setEnd] = useState('');
+  let dispatch =useDispatch();
   
 
   useEffect(() => {
@@ -36,7 +39,9 @@ const Detail = ({shoes}) => {
             <h4 className="pt-5">{선택상품.title}</h4>
             <p>{선택상품.content}</p>
             <p>{선택상품.price}</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button onClick={()=>{
+              dispatch(addCart({ id: 1, name: 'Red Knit', count: 1 }))
+            }} className="btn btn-danger">주문하기</button>
           </div>
         </div>
       </div>
