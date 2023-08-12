@@ -27,11 +27,15 @@ let cart = createSlice({
 
         },
         deleteCart(state,actions){
-            let a= state.findIndex((a)=>{
-                return a.id === actions.payload
-            })
-            console.log(a)
-            state.splice(state[a],0)
+        // let 삭제 = state.filter((a)=>{
+        //     return a.id !== actions.payload 
+        // })
+        // return state=[...삭제]
+
+         let 삭제 = state.findIndex((a)=>{
+            return a.id == actions.payload 
+        })
+        state.splice(삭제,1)
         }
     }
 })
