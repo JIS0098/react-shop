@@ -5,13 +5,13 @@ import user from './store/userSlice.js'
 let cart = createSlice({
     name: 'cart',
     initialState: [
-        { id: 0, name: 'White and Black', count: 2 },
+        { id: 0, name: 'White and Black', count: 1 },
         { id: 2, name: 'Grey Yordan', count: 1 }
     ],
     reducers:{
         addCount(state,actions){
         let a = state.findIndex((a)=>{
-            return a.id === actions.payload.id
+            return a.id === actions.payload
         })
         state[a].count++
         },
@@ -25,12 +25,19 @@ let cart = createSlice({
                 state.push(actions.payload)
             }
 
+        },
+        deleteCart(state,actions){
+            let a= state.findIndex((a)=>{
+                return a.id === actions.payload
+            })
+            console.log(a)
+            state.splice(state[a],0)
         }
     }
 })
 
 
-export let {addCount , addCart} = cart.actions
+export let {addCount , addCart , deleteCart} = cart.actions
 
 
 export default configureStore({

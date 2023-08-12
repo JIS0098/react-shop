@@ -7,7 +7,6 @@ import { addCart } from "../store";
 
 
 const Detail = ({shoes}) => {
-
   let { id } = useParams();
   let 선택상품 = shoes.find((a) => {
     return a.id == id;
@@ -16,7 +15,7 @@ const Detail = ({shoes}) => {
   let [탭, 탭변경] = useState(0);
   let [end, setEnd] = useState('');
   let dispatch =useDispatch();
-  
+
 
   useEffect(() => {
     setTimeout(() => { setEnd('end') }, 100)
@@ -32,15 +31,15 @@ const Detail = ({shoes}) => {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <img src={'https://codingapple1.github.io/shop/shoes1.jpg'} width='80%' />
+            <img src={`https://codingapple1.github.io/shop/shoes${Number(id)+1}.jpg`} width='80%' />
           </div>
           <div className="col-md-6">
             <input onChange={(e) => { 입력값변경(e.target.value) }} type="text" placeholder="갯수를 입력해주세요."></input>
-            <h4 className="pt-5">{선택상품.title}</h4>
-            <p>{선택상품.content}</p>
-            <p>{선택상품.price}</p>
+            <h4 className="pt-5">{선택상품 && 선택상품.title}</h4>
+            <p>{선택상품 &&선택상품.content}</p>
+            <p>{선택상품 &&선택상품.price}</p>
             <button onClick={()=>{
-              dispatch(addCart({ id: 1, name: 'Red Knit', count: 1 }))
+              dispatch(addCart({ id: 선택상품.id, name: 선택상품.title, count: 1 }))
             }} className="btn btn-danger">주문하기</button>
           </div>
         </div>
@@ -70,7 +69,7 @@ const Detail = ({shoes}) => {
     }, [탭])
     return (
       <div className={'start '+ end}>
-        {[<div>{shoes[0].title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+        {[<div>{shoes.title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
       </div>
       )
   }
