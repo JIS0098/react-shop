@@ -26,11 +26,10 @@ const Detail = ({ shoes }) => {
     }
   }, [입력값])
   
-
-    let watches = JSON.parse(localStorage.getItem('watches'))
-      watches.push(id)
-    let copy = [...new Set(watches)]
-      localStorage.setItem('watches', JSON.stringify(copy))
+  let watches = JSON.parse(localStorage.getItem('watches'))
+    watches.push(id)
+  let copy = [...new Set(watches)]
+    localStorage.setItem('watches', JSON.stringify(copy))
 
 
 
