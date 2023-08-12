@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "../store";
 
 
-const Detail = ({shoes}) => {
+const Detail = ({ shoes }) => {
   let { id } = useParams();
   let 선택상품 = shoes.find((a) => {
     return a.id == id;
@@ -14,31 +14,40 @@ const Detail = ({shoes}) => {
   let [입력값, 입력값변경] = useState(0);
   let [탭, 탭변경] = useState(0);
   let [end, setEnd] = useState('');
-  let dispatch =useDispatch();
-
-
+  let dispatch = useDispatch();
+  
   useEffect(() => {
     setTimeout(() => { setEnd('end') }, 100)
     if (isNaN(입력값) == true) {
       alert('그러지마세요')
     }
-    return ()=>{
+    return () => {
       setEnd('')
     }
   }, [입력값])
+  
+
+    let watches = JSON.parse(localStorage.getItem('watches'))
+      watches.push(id)
+    let copy = [...new Set(watches)]
+      localStorage.setItem('watches', JSON.stringify(copy))
+
+
+
+
   return (
-    <div className={"start "+end}>
+    <div className={"start " + end}>
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <img src={`https://codingapple1.github.io/shop/shoes${Number(id)+1}.jpg`} width='80%' />
+            <img src={`https://codingapple1.github.io/shop/shoes${Number(id) + 1}.jpg`} width='80%' />
           </div>
           <div className="col-md-6">
             <input onChange={(e) => { 입력값변경(e.target.value) }} type="text" placeholder="갯수를 입력해주세요."></input>
             <h4 className="pt-5">{선택상품 && 선택상품.title}</h4>
-            <p>{선택상품 &&선택상품.content}</p>
-            <p>{선택상품 &&선택상품.price}</p>
-            <button onClick={()=>{
+            <p>{선택상품 && 선택상품.content}</p>
+            <p>{선택상품 && 선택상품.price}</p>
+            <button onClick={() => {
               dispatch(addCart({ id: 선택상품.id, name: 선택상품.title, count: 1 }))
             }} className="btn btn-danger">주문하기</button>
           </div>
@@ -59,19 +68,19 @@ const Detail = ({shoes}) => {
     </div>
   );
 
-  function TabContent({탭,shoes}) {
+  function TabContent({ 탭, shoes }) {
     let [end, setEnd] = useState('');
     useEffect(() => {
       setTimeout(() => { setEnd('end') }, 100)
-      return ()=>{
+      return () => {
         setEnd('')
       }
     }, [탭])
     return (
-      <div className={'start '+ end}>
+      <div className={'start ' + end}>
         {[<div>{shoes.title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
       </div>
-      )
+    )
   }
 
 };

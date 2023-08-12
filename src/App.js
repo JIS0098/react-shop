@@ -12,10 +12,12 @@ function App() {
   let [shoes, setShoes] = useState(data)
   let [count, setCount] = useState(1)
   let [loading, setLoading] = useState(true)
-
   let navigate = useNavigate();
 
   useEffect(() => {
+    if(!localStorage.watches){
+      localStorage.setItem('watches', JSON.stringify([]))
+    }
     axios.get(`https://codingapple1.github.io/shop/data${count}.json`).then((a) => {
       let copy = [...shoes, ...a.data]
       setShoes(copy)
